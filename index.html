@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reshmeen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script type="application/json" id="store">{"brand":"Reshmeen","kicker":"The Bloom Edit · New arrival","tagline":"Pakistani suits in lawn, chiffon and velvet, embroidered thread by thread and delivered to your door.","announce":"New Bloom Edit is live · Order on WhatsApp","currency":"₹","whatsapp":"+91 78394 91131","instagram":"","email":"","address":"","categories":["Lawn","Chiffon","Velvet","Formal","Ready to wear"],"products":[{"id":"p1","name":"Noir Bloom","price":6490,"was":7990,"cat":"Formal","fabric":"Embroidered khaddar","pieces":"3 piece · shirt, dupatta, trouser","desc":"Deep cocoa base with rose and gold floral embroidery along the neckline, wide sleeves and front panels. Printed border dupatta.","img":"look1.jpg","badge":"New","stock":true,"featured":true},{"id":"p2","name":"Gulnar Neckline","price":5290,"was":0,"cat":"Formal","fabric":"Embroidered cotton","pieces":"3 piece","desc":"Statement floral neckline with a hand-finished button loop. Pairs with straight trousers.","img":"look2.jpg","badge":"","stock":true,"featured":true},{"id":"p3","name":"Rose Thread","price":4890,"was":5490,"cat":"Lawn","fabric":"Lawn with chikan detail","pieces":"2 piece · shirt, dupatta","desc":"Light summer lawn with rose embroidery that runs from shoulder to hem.","img":"detail1.jpg","badge":"Sale","stock":true,"featured":true},{"id":"p4","name":"Border Sleeve","price":3990,"was":0,"cat":"Chiffon","fabric":"Chiffon","pieces":"Unstitched 3 piece","desc":"Pastel woven border on the sleeves and a soft chiffon dupatta.","img":"detail2.jpg","badge":"","stock":true,"featured":true},{"id":"p5","name":"Shabnam Panel","price":7290,"was":0,"cat":"Velvet","fabric":"Velvet","pieces":"3 piece","desc":"Winter velvet with long embroidered front panels. Made for weddings and Eid dinners.","img":"detail3.jpg","badge":"Limited","stock":false,"featured":true},{"id":"p6","name":"Bloom Ready-to-wear","price":5690,"was":0,"cat":"Ready to wear","fabric":"Stitched cotton","pieces":"Sizes S to XL","desc":"The Bloom kurta already stitched, with trousers. Size chart on WhatsApp.","img":"look2.jpg","badge":"","stock":true,"featured":false}]}</script>
+<style>
+/* VOICE: hushed, luxurious, like a couture lookbook
+   IDEA: a boutique window with suits floating at different depths
+   PICTURE: the Noir Bloom film in a 3D frame, detail swatches floating around it
+   COLOUR and TYPE: cocoa #1c1310 field, cream #efe5d8, rose thread #d39aa8, gold #c9a46a; Cormorant + Jost
+   LAYOUT: full-bleed dark hero, 3D ring, grid of tilting cards, cream contact band */
+:root{color-scheme:dark;--bg:#1c1310;--bg2:#251a16;--ink:#efe5d8;--mute:#bba99a;--rose:#d39aa8;--gold:#c9a46a;--cream:#efe5d8;--line:rgba(239,229,216,.14)}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Jost,system-ui,sans-serif;font-weight:300;overflow-x:clip}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1.05;margin:0;text-wrap:balance}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.band{padding:clamp(48px,7vw,110px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+.ann{background:var(--rose);color:#2a1714;text-align:center;font-size:13px;padding:8px 16px;letter-spacing:.02em}
+nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:20px;flex-wrap:wrap;padding:14px max(5vw,16px);background:rgba(28,19,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:600;text-decoration:none;letter-spacing:.01em}
+.logo i{color:var(--gold);font-style:normal}
+nav .links{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap;font-size:15px}
+nav .links a{text-decoration:none;opacity:.85}nav .links a:hover{opacity:1;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:1px solid var(--gold);background:var(--gold);color:#22160f;font-weight:500;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.sm{min-height:38px;padding:0 14px;font-size:14px}
+#admBtn{display:none}
+/* hero */
+.hero{position:relative;min-height:min(92vh,880px);display:grid;place-items:center;overflow:hidden;perspective:1400px;padding:40px 16px 60px;background:radial-gradient(ellipse at 50% 40%,#3a2720 0%,var(--bg) 62%)}
+.giant{position:absolute;inset:auto 0 50%;transform:translateY(50%);text-align:center;font-family:"Cormorant Garamond",serif;font-size:clamp(90px,21vw,330px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(201,164,106,.32);white-space:nowrap;pointer-events:none;user-select:none}
+.stage{position:relative;width:min(340px,70vw);aspect-ratio:9/16;transform-style:preserve-3d;transition:transform .25s ease-out;will-change:transform}
+.frame{position:absolute;inset:0;border-radius:22px;overflow:hidden;box-shadow:0 50px 90px -20px rgba(0,0,0,.8),0 0 0 1px rgba(201,164,106,.35);transform:translateZ(0);background:#000}
+.frame video{width:100%;height:100%;object-fit:cover;display:block}
+.halo{position:absolute;inset:-14% -40%;border-radius:50%;border:1px solid rgba(201,164,106,.25);transform:translateZ(-140px) rotateX(70deg)}
+.halo.b{inset:-4% -26%;border-color:rgba(211,154,168,.22);transform:translateZ(-60px) rotateX(70deg)}
+.chip{position:absolute;width:clamp(96px,13vw,150px);border-radius:14px;overflow:hidden;background:var(--cream);color:#2a1a14;box-shadow:0 30px 50px -15px rgba(0,0,0,.7);animation:bob 6s ease-in-out infinite}
+.chip img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.chip span{display:block;padding:6px 10px 8px;font:italic 500 16px "Cormorant Garamond",serif}
+.chip.c1{left:-58%;top:10%;transform:translateZ(120px) rotateY(18deg)}
+.chip.c2{right:-60%;top:38%;transform:translateZ(170px) rotateY(-16deg);animation-delay:-2s}
+.chip.c3{left:-48%;bottom:4%;transform:translateZ(80px) rotateY(12deg);animation-delay:-4s}
+@keyframes bob{50%{margin-top:-14px}}
+.sound{position:absolute;right:12px;bottom:12px;z-index:2;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.45);color:#fff;font-size:13px}
+.heroTxt{position:relative;z-index:3;text-align:center;margin-top:34px;max-width:620px}
+.kick{color:var(--gold);font-size:14px;letter-spacing:.06em}
+.heroTxt h1{font-size:clamp(36px,5vw,56px);margin:8px 0 12px}
+.heroTxt p{color:var(--mute);margin:0 auto 22px;max-width:52ch}
+.ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* ring */
+.ringSec{background:var(--bg2);overflow:hidden}
+.head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.head h2{font-size:clamp(32px,4.2vw,52px)}
+.head p{color:var(--mute);margin:6px 0 0;max-width:48ch}
+.ringBox{height:clamp(380px,48vw,520px);perspective:1500px;display:grid;place-items:center;cursor:grab;touch-action:pan-y;user-select:none}
+.ringBox:active{cursor:grabbing}
+.ring{position:relative;width:clamp(150px,19vw,220px);aspect-ratio:3/4;transform-style:preserve-3d}
+.rc{position:absolute;inset:0;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 60px -20px rgba(0,0,0,.8);border:1px solid rgba(201,164,106,.3)}
+.rc img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.rc b{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.75));font:500 20px "Cormorant Garamond",serif;color:#fff}
+/* grid */
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:26px}
+.pill{min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:transparent;font-size:14px}
+.pill[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{margin-left:auto;min-height:44px;border-radius:999px;border:1px solid var(--line);background:transparent;padding:0 18px;font-size:16px;width:min(260px,100%)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:clamp(16px,2.4vw,30px);perspective:1200px}
+.card{position:relative;border-radius:18px;background:var(--bg2);border:1px solid var(--line);overflow:hidden;transform-style:preserve-3d;transition:transform .2s ease-out,box-shadow .3s;cursor:pointer;text-align:left;padding:0;width:100%}
+.card:hover{box-shadow:0 40px 60px -30px rgba(0,0,0,.9)}
+.card .im{position:relative;aspect-ratio:4/5;overflow:hidden}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.card:hover img{transform:scale(1.06)}
+.glare{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.22),transparent 55%);opacity:0;transition:opacity .3s}
+.card:hover .glare{opacity:1}
+.badge{position:absolute;top:12px;left:12px;background:var(--cream);color:#2a1a14;font-size:12px;padding:4px 10px;border-radius:999px;transform:translateZ(30px)}
+.badge.out{background:#5a463d;color:#efe5d8;left:auto;right:12px}
+.card .tx{padding:14px 16px 18px;transform:translateZ(20px)}
+.card h3{font-size:24px}
+.meta{color:var(--mute);font-size:14px}
+.price{font-size:17px;font-weight:400;white-space:nowrap;margin-top:6px}
+.price s{color:var(--mute);font-size:14px;margin-left:6px}
+.empty{padding:40px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:18px}
+.note{font-size:13px;color:var(--mute);margin-top:18px}
+/* craft */
+.craft{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:24px}
+.craft div{border-top:1px solid var(--gold);padding-top:16px}
+.craft h3{font-size:28px;margin-bottom:6px}.craft p{color:var(--mute);margin:0}
+/* contact */
+.contact{background:var(--cream);color:#2a1a14}
+.contact .meta{color:#6d5a4f}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:30px;align-items:start}
+.contact h2{font-size:clamp(34px,4.5vw,56px)}
+.contact .btn{background:#2a1a14;border-color:#2a1a14;color:var(--cream)}
+.contact dl{margin:0;display:grid;gap:12px}.contact dt{font-size:13px;color:#6d5a4f}.contact dd{margin:0;font-size:18px;overflow-wrap:anywhere}
+footer{padding:22px max(5vw,16px);font-size:13px;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* reveal */
+.rv{opacity:0;transform:translateY(40px) rotateX(12deg);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+/* modal */
+.ov{position:fixed;inset:0;z-index:50;background:rgba(10,6,5,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px}
+.ov.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--line);border-radius:22px;max-width:900px;width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.modal .pic{perspective:900px;padding:18px}
+.modal .pic img{width:100%;border-radius:14px;display:block;aspect-ratio:4/5;object-fit:cover;transition:transform .2s;box-shadow:0 30px 50px -20px #000}
+.modal .info{padding:28px 26px;display:flex;flex-direction:column;gap:12px}
+.modal h3{font-size:40px}
+.x{position:sticky;top:0;margin-left:auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);font-size:20px}
+.small{font-size:13px;color:var(--mute)}
+/* admin */
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(520px,100%);background:#f4ece2;color:#2a1a14;box-shadow:-30px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dh{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid #dccfc1}
+.dh h3{font-size:28px;margin-right:auto}
+.dh .x{background:#fff;border-color:#dccfc1;position:static}
+.tabs{display:flex;gap:6px;padding:10px 18px 0}
+.tabs button{border:0;background:transparent;padding:10px 12px;border-bottom:2px solid transparent;font-size:15px}
+.tabs button[aria-selected=true]{border-color:#2a1a14;font-weight:500}
+.db{flex:1;overflow:auto;padding:16px 18px 40px}
+.row{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #e2d6c9}
+.row img{width:54px;height:66px;object-fit:cover;border-radius:8px}
+.row .nm{font-weight:500}.row .sb{font-size:13px;color:#6d5a4f}
+.acts{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.ib{min-width:38px;height:38px;border-radius:10px;border:1px solid #d5c6b6;background:#fff;font-size:14px;padding:0 8px}
+.ib.del{color:#a3302a}.ib.del.sure{background:#a3302a;color:#fff}
+form.f{display:grid;gap:12px}
+.f label{display:grid;gap:4px;font-size:13px;color:#6d5a4f}
+.f input,.f select,.f textarea{font-size:16px;min-height:44px;border:1px solid #d5c6b6;border-radius:10px;padding:8px 12px;background:#fff;color:#2a1a14}
+.f textarea{min-height:90px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chk{display:flex!important;align-items:center;gap:8px;font-size:15px!important;color:#2a1a14!important}
+.chk input{min-height:auto;width:20px;height:20px}
+.prev{display:flex;gap:12px;align-items:center}
+.prev img{width:80px;height:100px;object-fit:cover;border-radius:10px;background:#e2d6c9}
+.dbtn{min-height:46px;border-radius:999px;border:0;background:#2a1a14;color:#f4ece2;padding:0 22px;font-weight:500}
+.dbtn.lt{background:#fff;color:#2a1a14;border:1px solid #d5c6b6}
+.picks{display:flex;gap:6px;flex-wrap:wrap}.picks img{width:44px;height:54px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent}.picks img:hover{border-color:#2a1a14}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);z-index:80;background:#2a1a14;color:#f4ece2;padding:12px 20px;border-radius:999px;font-size:14px;transition:transform .3s;max-width:90vw;text-align:center;border:1px solid var(--gold)}
+.toast.on{transform:translate(-50%,0)}
+@media(max-width:700px){.modal{grid-template-columns:1fr}.chip.c1{left:-24%;top:6%}.chip.c2{right:-24%}.chip.c3{display:none}.chip{width:78px}.chip span{font-size:13px}nav .links{gap:14px;font-size:14px;width:100%;margin-left:0}.search{margin-left:0;width:100%}.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="ann" id="ann"></div>
+<nav>
+  <a class="logo" href="#top" id="logo">Reshmeen</a>
+  <div class="links"><a href="#featured">Featured</a><a href="#shop">Collection</a><a href="#craft">Craft</a><a href="#contact">Contact</a><button class="btn sm ghost" id="admBtn">Manage store</button></div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="giant" id="giant">Reshmeen</div>
+  <div class="stage" id="stage">
+    <div class="halo"></div><div class="halo b"></div>
+    <div class="frame"><video id="vid" src="hero.mp4" autoplay muted loop playsinline poster="look1.jpg"></video><button class="sound" id="snd" aria-label="Turn sound on">♪</button></div>
+    <div class="chip c1"><img src="detail1.jpg" alt=""><span>Neckline</span></div>
+    <div class="chip c2"><img src="detail2.jpg" alt=""><span>Sleeve border</span></div>
+    <div class="chip c3"><img src="detail3.jpg" alt=""><span>Front panels</span></div>
+  </div>
+  <div class="heroTxt">
+    <div class="kick" id="kick"></div>
+    <h1 id="h1">Made to be seen</h1>
+    <p id="tag"></p>
+    <div class="ctas"><a class="btn" href="#shop">Shop the collection</a><a class="btn ghost" id="heroWa" href="#contact">Order on WhatsApp</a></div>
+  </div>
+</header>
+
+<section class="band ringSec" id="featured">
+  <div class="wrap">
+    <div class="head rv"><div><h2>Featured suits</h2><p>Drag to spin the rail. Tap a suit to see the details.</p></div></div>
+    <div class="ringBox" id="ringBox"><div class="ring" id="ring"></div></div>
+  </div>
+</section>
+
+<section class="band" id="shop">
+  <div class="wrap">
+    <div class="head rv"><div><h2>The collection</h2><p>Unstitched and ready to wear. Every piece ships with its dupatta.</p></div></div>
+    <div class="tools" id="tools"></div>
+    <div class="grid" id="grid"></div>
+    <p class="note" id="sampleNote">Sample products shown. Open Manage store to replace them with your own.</p>
+  </div>
+</section>
+
+<section class="band" id="craft" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="head rv"><h2>Crafted in detail</h2></div>
+    <div class="craft rv">
+      <div><h3>Every thread</h3><p>Embroidery placed by hand on necklines, sleeves and panels, finished so it lasts wash after wash.</p></div>
+      <div><h3>True fabrics</h3><p>Lawn for summer, chiffon for evenings, velvet and khaddar for winter weddings.</p></div>
+      <div><h3>Personal ordering</h3><p>Message us, ask for a video of the suit, confirm your size, and we pack it the same week.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band contact" id="contact">
+  <div class="wrap cgrid">
+    <div><h2>Order your suit</h2><p class="meta">Send the suit name on WhatsApp or Instagram and we reply with stock, sizes and delivery time.</p><a class="btn" id="waBig" href="#contact">Chat on WhatsApp</a></div>
+    <dl id="cinfo"></dl>
+  </div>
+</section>
+<footer><span id="copy"></span><span>Pakistani suits · lawn · chiffon · velvet</span></footer>
+
+<div class="ov" id="ov"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
+
+<aside class="drawer" id="drawer" aria-label="Manage store">
+  <div class="dh"><h3>Manage store</h3><button class="x" id="dClose" aria-label="Close">×</button></div>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="list">Products</button><button role="tab" aria-selected="false" data-t="site">Store details</button></div>
+  <div class="db" id="dbody"></div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S=JSON.parse($('#store').textContent);
+const BUILTIN=['look1.jpg','look2.jpg','detail1.jpg','detail2.jpg','detail3.jpg'];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let filter='All',query='';
+const CACHE={};const src=p=>esc(CACHE[p.img]||p.img);
+const money=n=>S.currency+Number(n||0).toLocaleString('en-IN');
+const waNum=()=>String(S.whatsapp||'').replace(/\D/g,'');
+const waLink=t=>waNum()?'https://wa.me/'+waNum()+'?text='+encodeURIComponent(t):'#contact';
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3200)}
+
+function renderSite(){
+  document.title=S.brand;
+  $('#logo').innerHTML=esc(S.brand.slice(0,-1))+'<i>'+esc(S.brand.slice(-1))+'</i>';
+  $('#giant').textContent=S.brand;
+  $('#ann').textContent=S.announce;$('#ann').style.display=S.announce?'':'none';
+  $('#kick').textContent=S.kicker;$('#tag').textContent=S.tagline;
+  const hi='Assalam o alaikum! I want to order from '+S.brand+'.';
+  $('#heroWa').href=waLink(hi);$('#waBig').href=waLink(hi);
+  const info=[['WhatsApp',S.whatsapp],['Instagram',S.instagram&&(S.instagram.startsWith('@')?S.instagram:'@'+S.instagram)],['Email',S.email],['Address',S.address]].filter(x=>x[1]);
+  $('#cinfo').innerHTML=info.length?info.map(([k,v])=>`<div><dt>${k}</dt><dd>${k==='Instagram'?`<a href="https://instagram.com/${esc(v.slice(1))}">${esc(v)}</a>`:k==='WhatsApp'?`<a href="${waLink('Assalam o alaikum! I want to order from '+S.brand+'.')}">${esc(v)}</a>`:esc(v)}</dd></div>`).join(''):'<div><dt>Contact details</dt><dd>Add your WhatsApp, Instagram and address in Manage store.</dd></div>';
+  $('#copy').textContent='© '+new Date().getFullYear()+' '+S.brand;
+  $('#sampleNote').style.display=S.products.some(p=>/^p\d$/.test(p.id))?'':'none';
+}
+
+function renderTools(){
+  const cats=['All',...S.categories];
+  $('#tools').innerHTML=cats.map(c=>`<button class="pill" aria-pressed="${c===filter}" data-c="${esc(c)}">${esc(c)}</button>`).join('')+`<input class="search" id="q" type="search" placeholder="Search suits" value="${esc(query)}" aria-label="Search suits">`;
+}
+function cardHTML(p){
+  return `<button class="card rv" data-id="${esc(p.id)}"><div class="im"><img src="${src(p)}" alt="${esc(p.name)}" loading="lazy">${p.badge?`<span class="badge">${esc(p.badge)}</span>`:''}${p.stock?'':'<span class="badge out">Sold out</span>'}<div class="glare"></div></div><div class="tx"><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div></div></button>`;
+}
+function renderGrid(){
+  const q=query.toLowerCase();
+  const list=S.products.filter(p=>(filter==='All'||p.cat===filter)&&(!q||(p.name+' '+p.fabric+' '+p.cat+' '+p.desc).toLowerCase().includes(q)));
+  $('#grid').innerHTML=list.length?list.map(cardHTML).join(''):`<div class="empty">${S.products.length?'No suits match. Try another filter.':'No products yet. Add your first suit from Manage store.'}</div>`;
+  observe();
+}
+
+/* ring */
+let ang=0,vel=.12,drag=null;
+function renderRing(){
+  let f=S.products.filter(p=>p.featured);if(f.length<3)f=S.products.slice(0,8);
+  const n=Math.max(f.length,1),w=$('#ring').offsetWidth||200,r=Math.round(w/2/Math.tan(Math.PI/Math.max(n,3)))+90;
+  $('#ring').innerHTML=f.map((p,i)=>`<div class="rc" data-id="${esc(p.id)}" style="transform:rotateY(${i*360/n}deg) translateZ(${r}px)"><img src="${src(p)}" alt="${esc(p.name)}"><b>${esc(p.name)}</b></div>`).join('');
+  $('#ringBox').style.display=f.length?'':'none';
+}
+function tick(){if(!drag)ang+=vel;$('#ring').style.transform=`translateZ(-120px) rotateX(-8deg) rotateY(${ang}deg)`;requestAnimationFrame(tick)}
+const rb=$('#ringBox');let moved=0;
+rb.addEventListener('pointerdown',e=>{drag={x:e.clientX,a:ang};moved=0});
+addEventListener('pointermove',e=>{if(!drag)return;const d=e.clientX-drag.x;moved=Math.abs(d);ang=drag.a+d*.35});
+addEventListener('pointerup',()=>{drag=null});
+rb.addEventListener('click',e=>{const c=e.target.closest('.rc');if(c&&moved<6)openP(c.dataset.id)});
+
+/* hero tilt */
+const stage=$('#stage'),hero=$('#top');
+if(!reduce){hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;stage.style.transform=`rotateY(${x*22}deg) rotateX(${-y*14}deg)`});hero.addEventListener('pointerleave',()=>stage.style.transform='rotateY(-8deg) rotateX(4deg)');stage.style.transform='rotateY(-8deg) rotateX(4deg)'}
+$('#snd').onclick=()=>{const v=$('#vid');v.muted=!v.muted;$('#snd').textContent=v.muted?'♪':'❚❚';$('#snd').setAttribute('aria-label',v.muted?'Turn sound on':'Mute');v.play().catch(()=>{})};
+
+/* card tilt + clicks */
+const grid=$('#grid');
+grid.addEventListener('pointermove',e=>{const c=e.target.closest('.card');if(!c||reduce)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.transform=`rotateY(${(x-.5)*14}deg) rotateX(${(.5-y)*14}deg) translateZ(10px)`;c.style.setProperty('--gx',x*100+'%');c.style.setProperty('--gy',y*100+'%')});
+grid.addEventListener('pointerout',e=>{const c=e.target.closest('.card');if(c&&!c.contains(e.relatedTarget))c.style.transform=''});
+grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openP(c.dataset.id)});
+$('#tools').addEventListener('click',e=>{const b=e.target.closest('.pill');if(!b)return;filter=b.dataset.c;renderTools();renderGrid()});
+$('#tools').addEventListener('input',e=>{if(e.target.id==='q'){query=e.target.value;renderGrid()}});
+
+/* modal */
+function openP(id){
+  const p=S.products.find(x=>x.id===id);if(!p)return;
+  const msg=`Assalam o alaikum! I want to order "${p.name}" (${money(p.price)}) from ${S.brand}. Is it available?`;
+  $('#modal').innerHTML=`<div class="pic"><img id="mImg" src="${src(p)}" alt="${esc(p.name)}"></div><div class="info"><button class="x" id="mx" aria-label="Close">×</button><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price" style="font-size:22px">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div><div class="small">${esc(p.pieces)}</div><p style="margin:0;color:var(--mute)">${esc(p.desc)}</p>${p.stock?`<a class="btn" href="${waLink(msg)}">Order on WhatsApp</a>`:'<div class="btn ghost" style="cursor:default">Sold out · ask for restock</div>'}<button class="btn ghost" id="cp">Copy order message</button>${waNum()?'':'<div class="small">WhatsApp number not added yet.</div>'}</div>`;
+  $('#ov').classList.add('open');
+  $('#mx').onclick=closeP;
+  $('#cp').onclick=()=>navigator.clipboard.writeText(msg).then(()=>toast('Order message copied')).catch(()=>toast('Copy not allowed here'));
+  const pic=$('#modal .pic'),im=$('#mImg');
+  pic.onpointermove=e=>{if(reduce)return;const r=pic.getBoundingClientRect();im.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*18}deg) rotateX(${(.5-(e.clientY-r.top)/r.height)*18}deg)`};
+  pic.onpointerleave=()=>im.style.transform='';
+}
+function closeP(){$('#ov').classList.remove('open')}
+$('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeP()});
+addEventListener('keydown',e=>{if(e.key==='Escape'){closeP();$('#drawer').classList.remove('open')}});
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.12});
+function observe(){document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el))}
+
+/* ===== admin ===== */
+let tab='list',editing=null,sure=null;
+function openDrawer(){$('#drawer').classList.add('open');renderAdmin()}
+$('#admBtn').onclick=openDrawer;
+$('#dClose').onclick=()=>$('#drawer').classList.remove('open');
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.t;editing=null;document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));renderAdmin()});
+
+function renderAdmin(){
+  const d=$('#dbody');
+  if(!GH){d.innerHTML=connectForm();bindConnect();return}
+  d.innerHTML=`<p style="font-size:13px;color:#6d5a4f;margin:0 0 12px">Connected to ${esc(GH.owner)}/${esc(GH.repo)}. Changes go live in about 1 minute. <button class="ib" id="logout" style="height:30px">Log out</button></p>`;
+  setTimeout(()=>{const l=$('#logout');if(l)l.onclick=()=>{GH=null;try{localStorage.removeItem('rsGh')}catch(e){}renderAdmin()}});
+  if(tab==='site'){d.innerHTML+=siteForm();bindSite();return}
+  if(editing){d.innerHTML+=prodForm(editing);bindProd();return}
+  d.innerHTML+=`<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><button class="dbtn" id="add">+ Add suit</button><span class="sb" style="font-size:13px;color:#6d5a4f">${S.products.length} products</span></div>`+
+  (S.products.length?S.products.map((p,i)=>`<div class="row"><img src="${src(p)}" alt=""><div><div class="nm">${esc(p.name)}</div><div class="sb">${money(p.price)} · ${esc(p.cat)}${p.stock?'':' · sold out'}${p.featured?' · featured':''}</div></div><div class="acts"><button class="ib" data-a="up" data-i="${i}" aria-label="Move up">↑</button><button class="ib" data-a="down" data-i="${i}" aria-label="Move down">↓</button><button class="ib" data-a="edit" data-i="${i}">Edit</button><button class="ib del${sure===i?' sure':''}" data-a="del" data-i="${i}">${sure===i?'Sure?':'Delete'}</button></div></div>`).join(''):'<p class="empty" style="color:#6d5a4f;border-color:#d5c6b6">No products yet.</p>');
+  $('#add').onclick=()=>{editing={id:'s'+Date.now().toString(36),name:'',price:'',was:'',cat:S.categories[0]||'',fabric:'',pieces:'3 piece',desc:'',img:BUILTIN[0],badge:'New',stock:true,featured:true,_new:true};renderAdmin()};
+  d.querySelectorAll('.ib').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i,a=b.dataset.a,P=S.products;
+    if(a==='edit'){editing={...P[i]};sure=null;renderAdmin();return}
+    if(a==='del'){if(sure!==i){sure=i;renderAdmin();return}P.splice(i,1);sure=null;commit('Suit deleted');return}
+    const j=a==='up'?i-1:i+1;if(j<0||j>=P.length)return;[P[i],P[j]]=[P[j],P[i]];commit('Order updated');
+  });
+}
+function prodForm(p){
+  return `<form class="f" id="pf"><h3 class="serif" style="font-size:26px">${p._new?'Add a suit':'Edit suit'}</h3>
+  <div class="prev"><img id="pimg" src="${src(p)}" alt=""><div style="display:grid;gap:6px"><label>Upload photo<input type="file" id="file" accept="image/*"></label><div class="picks">${BUILTIN.map(b=>`<img src="${b}" data-b="${b}" alt="Use this photo">`).join('')}</div></div></div>
+  <label>Suit name<input name="name" required value="${esc(p.name)}"></label>
+  <div class="two"><label>Price (${esc(S.currency)})<input name="price" type="number" min="0" required value="${esc(p.price)}"></label><label>Old price, for sale<input name="was" type="number" min="0" value="${esc(p.was||'')}"></label></div>
+  <div class="two"><label>Category<select name="cat">${S.categories.map(c=>`<option ${c===p.cat?'selected':''}>${esc(c)}</option>`).join('')}</select></label><label>Badge<input name="badge" value="${esc(p.badge)}" placeholder="New, Sale, Limited"></label></div>
+  <div class="two"><label>Fabric<input name="fabric" value="${esc(p.fabric)}"></label><label>Pieces / sizes<input name="pieces" value="${esc(p.pieces)}"></label></div>
+  <label>Description<textarea name="desc">${esc(p.desc)}</textarea></label>
+  <label class="chk"><input type="checkbox" name="stock" ${p.stock?'checked':''}> In stock</label>
+  <label class="chk"><input type="checkbox" name="featured" ${p.featured?'checked':''}> Show in 3D featured rail</label>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="dbtn" type="submit" id="saveP">Save suit</button><button class="dbtn lt" type="button" id="cancel">Cancel</button></div></form>`;
+}
+function bindProd(){
+  const f=$('#pf');
+  $('#cancel').onclick=()=>{editing=null;renderAdmin()};
+  f.querySelectorAll('.picks img').forEach(i=>i.onclick=()=>{editing.img=i.dataset.b;$('#pimg').src=i.dataset.b});
+  $('#file').onchange=async e=>{const fl=e.target.files[0];if(!fl)return;$('#saveP').disabled=true;$('#saveP').textContent='Uploading photo…';
+    try{editing.img=await uploadImg(fl);$('#pimg').src=CACHE[editing.img]||editing.img}catch(err){toast('Photo upload failed, try a smaller image')}
+    $('#saveP').disabled=false;$('#saveP').textContent='Save suit'};
+  f.onsubmit=e=>{e.preventDefault();const fd=new FormData(f);
+    const p={...editing,name:fd.get('name').trim(),price:+fd.get('price')||0,was:+fd.get('was')||0,cat:fd.get('cat'),badge:fd.get('badge').trim(),fabric:fd.get('fabric').trim(),pieces:fd.get('pieces').trim(),desc:fd.get('desc').trim(),stock:fd.has('stock'),featured:fd.has('featured')};
+    const isNew=p._new;delete p._new;
+    if(isNew)S.products.unshift(p);else{const i=S.products.findIndex(x=>x.id===p.id);if(i>-1)S.products[i]=p}
+    editing=null;commit(isNew?'Suit added':'Suit updated')};
+}
+async function uploadImg(file){
+  const bmp=await createImageBitmap(file),k=Math.min(1,1200/Math.max(bmp.width,bmp.height));
+  const c=document.createElement('canvas');c.width=Math.round(bmp.width*k);c.height=Math.round(bmp.height*k);c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',.82));
+  const data=c.toDataURL('image/jpeg',.82),path='img/u'+Date.now().toString(36)+'.jpg';
+  await ghPut(path,data.split(',')[1],'Add photo');CACHE[path]=data;return path;
+}
+function siteForm(){
+  return `<form class="f" id="sf"><h3 class="serif" style="font-size:26px">Store details</h3>
+  <label>Store name<input name="brand" required value="${esc(S.brand)}"></label>
+  <label>Top announcement bar (leave empty to hide)<input name="announce" value="${esc(S.announce)}"></label>
+  <label>Small line above hero title<input name="kicker" value="${esc(S.kicker)}"></label>
+  <label>Hero description<textarea name="tagline">${esc(S.tagline)}</textarea></label>
+  <div class="two"><label>WhatsApp number with country code<input name="whatsapp" inputmode="tel" placeholder="+91 98xxxxxxxx" value="${esc(S.whatsapp)}"></label><label>Currency symbol<input name="currency" value="${esc(S.currency)}"></label></div>
+  <div class="two"><label>Instagram handle<input name="instagram" placeholder="@yourpage" value="${esc(S.instagram)}"></label><label>Email<input name="email" type="email" value="${esc(S.email)}"></label></div>
+  <label>Address / city<input name="address" value="${esc(S.address)}"></label>
+  <label>Categories, separated by commas<input name="categories" value="${esc(S.categories.join(', '))}"></label>
+  <button class="dbtn" type="submit">Save details</button></form>`;
+}
+function bindSite(){
+  $('#sf').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.target);
+    ['brand','announce','kicker','tagline','whatsapp','currency','instagram','email','address'].forEach(k=>S[k]=fd.get(k).trim());
+    S.categories=fd.get('categories').split(',').map(s=>s.trim()).filter(Boolean);
+    commit('Store details saved')};
+}
+
+let saving=false,GH=null;
+try{GH=JSON.parse(localStorage.getItem('rsGh')||'null')}catch(e){}
+const b64=str=>{const u=new TextEncoder().encode(str);let x='';for(let i=0;i<u.length;i+=8192)x+=String.fromCharCode(...u.subarray(i,i+8192));return btoa(x)};
+const H=()=>({Authorization:'Bearer '+GH.token,Accept:'application/vnd.github+json'});
+async function ghPut(path,content,msg){
+  const url=`https://api.github.com/repos/${GH.owner}/${GH.repo}/contents/${path}`;
+  let sha;const r=await fetch(url+'?ref='+GH.branch+'&t='+Date.now(),{headers:H(),cache:'no-store'});if(r.ok)sha=(await r.json()).sha;
+  const p=await fetch(url,{method:'PUT',headers:H(),body:JSON.stringify({message:msg,content,branch:GH.branch,sha})});
+  if(!p.ok)throw new Error((await p.json().catch(()=>({}))).message||('Error '+p.status));
+}
+function guess(){const h=location.hostname,seg=location.pathname.split('/').filter(Boolean)[0];if(h.endsWith('.github.io')){const o=h.split('.')[0];return{owner:o,repo:seg&&!seg.includes('.')?seg:h}}return{owner:'',repo:''}}
+function connectForm(){const g=guess();return `<form class="f" id="cf"><h3 class="serif" style="font-size:26px">Owner login</h3><p style="margin:0;font-size:14px;color:#6d5a4f">Paste your GitHub token once on this device. It stays only in this browser.</p>
+  <label>GitHub username<input name="owner" required value="${esc(g.owner)}"></label>
+  <label>Repository name<input name="repo" required value="${esc(g.repo)}"></label>
+  <label>Token<input name="token" type="password" required autocomplete="off"></label>
+  <button class="dbtn" type="submit" id="cgo">Log in</button><p id="cerr" style="color:#a3302a;font-size:14px;margin:0"></p></form>`}
+function bindConnect(){$('#cf').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);
+  const g={owner:fd.get('owner').trim(),repo:fd.get('repo').trim(),token:fd.get('token').trim(),branch:'main'};
+  $('#cgo').textContent='Checking…';
+  try{const r=await fetch(`https://api.github.com/repos/${g.owner}/${g.repo}`,{headers:{Authorization:'Bearer '+g.token}});if(!r.ok)throw 0;const j=await r.json();g.branch=j.default_branch||'main';
+    GH=g;try{localStorage.setItem('rsGh',JSON.stringify(g))}catch(e){}renderAdmin();toast('Logged in')}
+  catch(err){$('#cerr').textContent='Could not connect. Check the username, repository name and token.';$('#cgo').textContent='Log in'}}}
+async function commit(msg){
+  renderAll();renderAdmin();
+  if(!GH){toast('Log in first to save');return}
+  if(saving){toast('Wait, still saving…');return}saving=true;toast('Saving…');
+  try{await ghPut('store.json',b64(JSON.stringify(S,null,1)),msg);toast(msg+' · live in about 1 minute')}
+  catch(e){toast('Could not save: '+(e.message||'error'))}
+  saving=false;
+}
+function renderAll(){renderSite();renderTools();renderGrid();renderRing()}
+renderAll();observe();if(!reduce)requestAnimationFrame(tick);else renderRing();
+addEventListener('resize',renderRing);
+
+function showAdm(){const on=location.hash==='#admin'||!!GH;$('#admBtn').style.display=on?'inline-flex':'none';if(location.hash==='#admin')openDrawer()}
+addEventListener('hashchange',showAdm);showAdm();
+fetch('store.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.products){S=j;renderAll();if($('#drawer').classList.contains('open'))renderAdmin()}}).catch(()=>{});
+}
+</script>
+</body>
+</html>
