@@ -17,10 +17,10 @@
  ],
  "products": [
   {
-   "id": "p1",
+   "id": "noir-bloom",
    "name": "Noir Bloom",
-   "price": 6490,
-   "was": 7990,
+   "price": 2000,
+   "was": 0,
    "cat": "Formal",
    "fabric": "Embroidered khaddar",
    "pieces": "3 piece · shirt, dupatta, trouser",
@@ -29,76 +29,6 @@
    "badge": "New",
    "stock": true,
    "featured": true
-  },
-  {
-   "id": "p2",
-   "name": "Gulnar Neckline",
-   "price": 5290,
-   "was": 0,
-   "cat": "Formal",
-   "fabric": "Embroidered cotton",
-   "pieces": "3 piece",
-   "desc": "Statement floral neckline with a hand-finished button loop. Pairs with straight trousers.",
-   "img": "look2.jpg",
-   "badge": "",
-   "stock": true,
-   "featured": true
-  },
-  {
-   "id": "p3",
-   "name": "Rose Thread",
-   "price": 4890,
-   "was": 5490,
-   "cat": "Lawn",
-   "fabric": "Lawn with chikan detail",
-   "pieces": "2 piece · shirt, dupatta",
-   "desc": "Light summer lawn with rose embroidery that runs from shoulder to hem.",
-   "img": "detail1.jpg",
-   "badge": "Sale",
-   "stock": true,
-   "featured": true
-  },
-  {
-   "id": "p4",
-   "name": "Border Sleeve",
-   "price": 3990,
-   "was": 0,
-   "cat": "Chiffon",
-   "fabric": "Chiffon",
-   "pieces": "Unstitched 3 piece",
-   "desc": "Pastel woven border on the sleeves and a soft chiffon dupatta.",
-   "img": "detail2.jpg",
-   "badge": "",
-   "stock": true,
-   "featured": true
-  },
-  {
-   "id": "p5",
-   "name": "Shabnam Panel",
-   "price": 7290,
-   "was": 0,
-   "cat": "Velvet",
-   "fabric": "Velvet",
-   "pieces": "3 piece",
-   "desc": "Winter velvet with long embroidered front panels. Made for weddings and Eid dinners.",
-   "img": "detail3.jpg",
-   "badge": "Limited",
-   "stock": false,
-   "featured": true
-  },
-  {
-   "id": "p6",
-   "name": "Bloom Ready-to-wear",
-   "price": 5690,
-   "was": 0,
-   "cat": "Ready to wear",
-   "fabric": "Stitched cotton",
-   "pieces": "Sizes S to XL",
-   "desc": "The Bloom kurta already stitched, with trousers. Size chart on WhatsApp.",
-   "img": "look2.jpg",
-   "badge": "",
-   "stock": true,
-   "featured": false
   }
  ]
 }
