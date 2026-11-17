@@ -228,7 +228,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let filter='All',query='';
 const CACHE={};const src=p=>esc(CACHE[p.img]||p.img);
 const money=n=>S.currency+Number(n||0).toLocaleString('en-IN');
-const waNum=()=>String(S.whatsapp||'').replace(/\D/g,'');
+const waNum=()=>{let n=String(S.waTo||S.whatsapp||'').replace(/\D/g,'');if(n.length===10)n='91'+n;return n};
 const waLink=t=>waNum()?'https://wa.me/'+waNum()+'?text='+encodeURIComponent(t):'#contact';
 
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3200)}
@@ -380,6 +380,7 @@ function siteForm(){
   <label>Small line above hero title<input name="kicker" value="${esc(S.kicker)}"></label>
   <label>Hero description<textarea name="tagline">${esc(S.tagline)}</textarea></label>
   <div class="two"><label>WhatsApp number with country code<input name="whatsapp" inputmode="tel" placeholder="+91 98xxxxxxxx" value="${esc(S.whatsapp)}"></label><label>Currency symbol<input name="currency" value="${esc(S.currency)}"></label></div>
+  <label>Orders go to this WhatsApp (leave empty to use the number above)<input name="waTo" inputmode="tel" value="${esc(S.waTo||'')}"></label>
   <div class="two"><label>Instagram handle<input name="instagram" placeholder="@yourpage" value="${esc(S.instagram)}"></label><label>Email<input name="email" type="email" value="${esc(S.email)}"></label></div>
   <label>Address / city<input name="address" value="${esc(S.address)}"></label>
   <label>Categories, separated by commas<input name="categories" value="${esc(S.categories.join(', '))}"></label>
@@ -387,7 +388,7 @@ function siteForm(){
 }
 function bindSite(){
   $('#sf').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.target);
-    ['brand','announce','kicker','tagline','whatsapp','currency','instagram','email','address'].forEach(k=>S[k]=fd.get(k).trim());
+    ['brand','announce','kicker','tagline','whatsapp','waTo','currency','instagram','email','address'].forEach(k=>S[k]=fd.get(k).trim());
     S.categories=fd.get('categories').split(',').map(s=>s.trim()).filter(Boolean);
     commit('Store details saved')};
 }
