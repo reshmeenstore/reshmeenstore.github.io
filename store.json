@@ -29,6 +29,21 @@
    "badge": "New",
    "stock": true,
    "featured": true
+  },
+  {
+   "id": "black-coral",
+   "name": "Black Coral",
+   "price": 1500,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Embroidered lawn",
+   "pieces": "3 piece · shirt, dupatta, trouser",
+   "desc": "Black base with coral and ivory embroidery on the neckline and daaman, paired with a printed floral dupatta.",
+   "img": "blackcoral.jpg",
+   "video": "blackcoral.mp4",
+   "badge": "New",
+   "stock": true,
+   "featured": true
   }
  ]
 }

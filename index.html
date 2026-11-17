@@ -109,6 +109,8 @@ footer{padding:22px max(5vw,16px);font-size:13px;color:var(--mute);display:flex;
 .ov.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--line);border-radius:22px;max-width:900px;width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .modal .pic{perspective:900px;padding:18px}
+.modal .pic video{width:100%;border-radius:14px;display:block;aspect-ratio:9/16;max-height:80vh;object-fit:cover;background:#000;transition:transform .2s;box-shadow:0 30px 50px -20px #000}
+.vb{position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:4px 10px;border-radius:999px;transform:translateZ(30px)}
 .modal .pic img{width:100%;border-radius:14px;display:block;aspect-ratio:4/5;object-fit:cover;transition:transform .2s;box-shadow:0 30px 50px -20px #000}
 .modal .info{padding:28px 26px;display:flex;flex-direction:column;gap:12px}
 .modal h3{font-size:40px}
@@ -250,7 +252,7 @@ function renderTools(){
   $('#tools').innerHTML=cats.map(c=>`<button class="pill" aria-pressed="${c===filter}" data-c="${esc(c)}">${esc(c)}</button>`).join('')+`<input class="search" id="q" type="search" placeholder="Search suits" value="${esc(query)}" aria-label="Search suits">`;
 }
 function cardHTML(p){
-  return `<button class="card rv" data-id="${esc(p.id)}"><div class="im"><img src="${src(p)}" alt="${esc(p.name)}" loading="lazy">${p.badge?`<span class="badge">${esc(p.badge)}</span>`:''}${p.stock?'':'<span class="badge out">Sold out</span>'}<div class="glare"></div></div><div class="tx"><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div></div></button>`;
+  return `<button class="card rv" data-id="${esc(p.id)}"><div class="im"><img src="${src(p)}" alt="${esc(p.name)}" loading="lazy">${p.badge?`<span class="badge">${esc(p.badge)}</span>`:''}${p.stock?'':'<span class="badge out">Sold out</span>'}${p.video?'<span class="vb">▶ Video</span>':''}<div class="glare"></div></div><div class="tx"><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div></div></button>`;
 }
 function renderGrid(){
   const q=query.toLowerCase();
@@ -291,7 +293,7 @@ $('#tools').addEventListener('input',e=>{if(e.target.id==='q'){query=e.target.va
 function openP(id){
   const p=S.products.find(x=>x.id===id);if(!p)return;
   const msg=`Assalam o alaikum! I want to order "${p.name}" (${money(p.price)}) from ${S.brand}. Is it available?`;
-  $('#modal').innerHTML=`<div class="pic"><img id="mImg" src="${src(p)}" alt="${esc(p.name)}"></div><div class="info"><button class="x" id="mx" aria-label="Close">×</button><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price" style="font-size:22px">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div><div class="small">${esc(p.pieces)}</div><p style="margin:0;color:var(--mute)">${esc(p.desc)}</p>${p.stock?`<a class="btn" href="${waLink(msg)}">Order on WhatsApp</a>`:'<div class="btn ghost" style="cursor:default">Sold out · ask for restock</div>'}<button class="btn ghost" id="cp">Copy order message</button>${waNum()?'':'<div class="small">WhatsApp number not added yet.</div>'}</div>`;
+  $('#modal').innerHTML=`<div class="pic">${p.video?`<video id="mImg" src="${esc(p.video)}" poster="${src(p)}" autoplay muted loop playsinline controls></video>`:`<img id="mImg" src="${src(p)}" alt="${esc(p.name)}">`}</div><div class="info"><button class="x" id="mx" aria-label="Close">×</button><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price" style="font-size:22px">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div><div class="small">${esc(p.pieces)}</div><p style="margin:0;color:var(--mute)">${esc(p.desc)}</p>${p.stock?`<a class="btn" href="${waLink(msg)}">Order on WhatsApp</a>`:'<div class="btn ghost" style="cursor:default">Sold out · ask for restock</div>'}<button class="btn ghost" id="cp">Copy order message</button>${waNum()?'':'<div class="small">WhatsApp number not added yet.</div>'}</div>`;
   $('#ov').classList.add('open');
   $('#mx').onclick=closeP;
   $('#cp').onclick=()=>navigator.clipboard.writeText(msg).then(()=>toast('Order message copied')).catch(()=>toast('Copy not allowed here'));
@@ -299,7 +301,7 @@ function openP(id){
   pic.onpointermove=e=>{if(reduce)return;const r=pic.getBoundingClientRect();im.style.transform=`rotateY(${((e.clientX-r.left)/r.width-.5)*18}deg) rotateX(${(.5-(e.clientY-r.top)/r.height)*18}deg)`};
   pic.onpointerleave=()=>im.style.transform='';
 }
-function closeP(){$('#ov').classList.remove('open')}
+function closeP(){const v=$('#modal video');if(v)v.pause();$('#ov').classList.remove('open')}
 $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeP()});
 addEventListener('keydown',e=>{if(e.key==='Escape'){closeP();$('#drawer').classList.remove('open')}});
 
@@ -334,6 +336,7 @@ function renderAdmin(){
 function prodForm(p){
   return `<form class="f" id="pf"><h3 class="serif" style="font-size:26px">${p._new?'Add a suit':'Edit suit'}</h3>
   <div class="prev"><img id="pimg" src="${src(p)}" alt=""><div style="display:grid;gap:6px"><label>Upload photo<input type="file" id="file" accept="image/*"></label><div class="picks">${BUILTIN.map(b=>`<img src="${b}" data-b="${b}" alt="Use this photo">`).join('')}</div></div></div>
+  <label>Video (optional, mp4 under 20 MB)<input type="file" id="vfile" accept="video/mp4"></label><div class="sb" id="vcur" style="font-size:13px;color:#6d5a4f">${p.video?'Current video: '+esc(p.video)+' <button type="button" class="ib" id="vdel" style="height:30px">Remove video</button>':'No video'}</div>
   <label>Suit name<input name="name" required value="${esc(p.name)}"></label>
   <div class="two"><label>Price (${esc(S.currency)})<input name="price" type="number" min="0" required value="${esc(p.price)}"></label><label>Old price, for sale<input name="was" type="number" min="0" value="${esc(p.was||'')}"></label></div>
   <div class="two"><label>Category<select name="cat">${S.categories.map(c=>`<option ${c===p.cat?'selected':''}>${esc(c)}</option>`).join('')}</select></label><label>Badge<input name="badge" value="${esc(p.badge)}" placeholder="New, Sale, Limited"></label></div>
@@ -349,6 +352,13 @@ function bindProd(){
   f.querySelectorAll('.picks img').forEach(i=>i.onclick=()=>{editing.img=i.dataset.b;$('#pimg').src=i.dataset.b});
   $('#file').onchange=async e=>{const fl=e.target.files[0];if(!fl)return;$('#saveP').disabled=true;$('#saveP').textContent='Uploading photo…';
     try{editing.img=await uploadImg(fl);$('#pimg').src=CACHE[editing.img]||editing.img}catch(err){toast('Photo upload failed, try a smaller image')}
+    $('#saveP').disabled=false;$('#saveP').textContent='Save suit'};
+  const vd=$('#vdel');if(vd)vd.onclick=()=>{editing.video='';$('#vcur').textContent='No video'};
+  $('#vfile').onchange=async e=>{const fl=e.target.files[0];if(!fl)return;if(fl.size>20e6){toast('Video too big, keep it under 20 MB');return}
+    $('#saveP').disabled=true;$('#saveP').textContent='Uploading video…';
+    try{const buf=new Uint8Array(await fl.arrayBuffer());let x='';for(let i=0;i<buf.length;i+=8192)x+=String.fromCharCode(...buf.subarray(i,i+8192));
+      const path='videos/v'+Date.now().toString(36)+'.mp4';await ghPut(path,btoa(x),'Add video');editing.video=path;$('#vcur').textContent='Video uploaded'}
+    catch(err){toast('Video upload failed: '+(err.message||''))}
     $('#saveP').disabled=false;$('#saveP').textContent='Save suit'};
   f.onsubmit=e=>{e.preventDefault();const fd=new FormData(f);
     const p={...editing,name:fd.get('name').trim(),price:+fd.get('price')||0,was:+fd.get('was')||0,cat:fd.get('cat'),badge:fd.get('badge').trim(),fabric:fd.get('fabric').trim(),pieces:fd.get('pieces').trim(),desc:fd.get('desc').trim(),stock:fd.has('stock'),featured:fd.has('featured')};
