@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+ <url>
+  <loc>https://reshmeenstore.github.io/</loc>
+  <lastmod>2026-11-18</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>1.0</priority>
+  <image:image><image:loc>https://reshmeenstore.github.io/reshmeen_upload/charcoal-jilbab.jpg</image:loc><image:title>Charcoal Grey Jilbab</image:title></image:image>
+  <image:image><image:loc>https://reshmeenstore.github.io/look1.jpg</image:loc><image:title>Noir Bloom</image:title></image:image>
+  <image:image><image:loc>https://reshmeenstore.github.io/blackcoral.jpg</image:loc><image:title>Black Coral</image:title></image:image>
+ </url>
+</urlset>
