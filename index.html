@@ -117,8 +117,8 @@ footer{padding:22px max(5vw,16px);font-size:13px;color:var(--mute);display:flex;
 .x{position:sticky;top:0;margin-left:auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);font-size:20px}
 .small{font-size:13px;color:var(--mute)}
 /* admin */
-.drawer{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(520px,100%);background:#f4ece2;color:#2a1a14;box-shadow:-30px 0 60px rgba(0,0,0,.5);transform:translateX(105%);transition:transform .35s;display:flex;flex-direction:column}
-.drawer.open{transform:none}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:60;width:min(520px,100%);background:#f4ece2;color:#2a1a14;box-shadow:none;transform:translateX(105%);transition:transform .35s;display:flex;flex-direction:column}
+.drawer.open{transform:none;box-shadow:-30px 0 60px rgba(0,0,0,.5)}
 .dh{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid #dccfc1}
 .dh h3{font-size:28px;margin-right:auto}
 .dh .x{background:#fff;border-color:#dccfc1;position:static}
@@ -146,6 +146,46 @@ form.f{display:grid;gap:12px}
 .picks{display:flex;gap:6px;flex-wrap:wrap}.picks img{width:44px;height:54px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent}.picks img:hover{border-color:#2a1a14}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);z-index:80;background:#2a1a14;color:#f4ece2;padding:12px 20px;border-radius:999px;font-size:14px;transition:transform .3s;max-width:90vw;text-align:center;border:1px solid var(--gold)}
 .toast.on{transform:translate(-50%,0)}
+
+/* ===== light theme ===== */
+:root[data-theme=light]{color-scheme:light;--bg:#f4ece2;--bg2:#eadfd1;--ink:#2a1a14;--mute:#6d5a4f;--line:rgba(42,26,20,.14);--gold:#a57d3f}
+:root[data-theme=light] nav{background:rgba(244,236,226,.85)}
+:root[data-theme=light] .hero{background:radial-gradient(ellipse at 50% 40%,#fff8ee 0%,var(--bg) 62%)}
+:root[data-theme=light] .giant{-webkit-text-stroke:1px rgba(165,125,63,.45)}
+:root[data-theme=light] .btn{color:#fff8ee}
+:root[data-theme=light] .btn.ghost{color:var(--ink)}
+:root[data-theme=light] .pill[aria-pressed=true]{color:#f4ece2}
+:root[data-theme=light] .contact{background:#2a1a14;color:#f4ece2}
+:root[data-theme=light] .contact .meta,:root[data-theme=light] .contact dt{color:#c9b8a8}
+:root[data-theme=light] .contact .btn{background:#c9a46a;border-color:#c9a46a;color:#22160f}
+:root[data-theme=light] .card:hover{box-shadow:0 40px 60px -30px rgba(42,26,20,.45)}
+.thm{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;display:inline-grid;place-items:center;color:var(--ink)}
+.thm svg{width:20px;height:20px}
+/* ===== spotlight ===== */
+.spot{position:fixed;inset:0;z-index:25;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),rgba(232,196,128,.16),transparent 60%);mix-blend-mode:screen;opacity:0;transition:opacity .4s}
+.spot.on{opacity:1}
+:root[data-theme=light] .spot{background:radial-gradient(420px circle at var(--mx,50%) var(--my,30%),rgba(255,236,190,.55),transparent 60%);mix-blend-mode:soft-light}
+/* ===== particles ===== */
+#dust{position:fixed;inset:0;width:100%;height:100%;z-index:24;pointer-events:none}
+/* ===== gold shimmer ===== */
+.shine{background:linear-gradient(100deg,var(--ink) 0%,var(--ink) 40%,#f3d79a 50%,var(--ink) 60%,var(--ink) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:sh 5s linear infinite}
+.logo.shine i{color:transparent}
+@keyframes sh{from{background-position:120% 0}to{background-position:-130% 0}}
+.btn,.card .im{position:relative;overflow:hidden}
+.btn::after,.card .im::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,240,205,.45),transparent);transform:skewX(-20deg);animation:sweep 4.5s ease-in-out infinite;pointer-events:none}
+.card .im::after{animation-duration:6s;opacity:.7}
+.card:nth-child(2n) .im::after{animation-delay:-2s}.card:nth-child(3n) .im::after{animation-delay:-4s}
+@keyframes sweep{0%,55%{left:-60%}85%,100%{left:130%}}
+.frame::after{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;background:linear-gradient(115deg,transparent 40%,rgba(255,236,190,.22) 50%,transparent 60%);background-size:300% 100%;animation:sh 6s linear infinite}
+.frame{box-shadow:0 50px 90px -20px rgba(0,0,0,.8),0 0 0 1px rgba(201,164,106,.45),0 0 60px -10px rgba(201,164,106,.35)}
+@media(prefers-reduced-motion:reduce){.spot,#dust{display:none}.shine{animation:none;color:var(--ink)!important;background:none}}
+/* ===== rain + lightning ===== */
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:23;pointer-events:none}
+.flash{position:fixed;inset:0;z-index:26;pointer-events:none;background:radial-gradient(ellipse at var(--fx,50%) 0%,rgba(235,225,255,.55),rgba(200,190,255,.12) 45%,transparent 75%);opacity:0;mix-blend-mode:screen}
+:root[data-theme=light] .flash{background:radial-gradient(ellipse at var(--fx,50%) 0%,rgba(255,255,255,.7),rgba(255,255,255,.15) 45%,transparent 75%);mix-blend-mode:normal}
+.flash.go{animation:fl 1.1s ease-out}
+@keyframes fl{0%{opacity:0}6%{opacity:1}14%{opacity:.15}22%{opacity:.85}40%{opacity:.1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){#rain,.flash{display:none}}
 @media(max-width:700px){.modal{grid-template-columns:1fr}.chip.c1{left:-24%;top:6%}.chip.c2{right:-24%}.chip.c3{display:none}.chip{width:78px}.chip span{font-size:13px}nav .links{gap:14px;font-size:14px;width:100%;margin-left:0}.search{margin-left:0;width:100%}.two{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
@@ -153,8 +193,8 @@ form.f{display:grid;gap:12px}
 <body>
 <div class="ann" id="ann"></div>
 <nav>
-  <a class="logo" href="#top" id="logo">Reshmeen</a>
-  <div class="links"><a href="#featured">Featured</a><a href="#shop">Collection</a><a href="#craft">Craft</a><a href="#contact">Contact</a><button class="btn sm ghost" id="admBtn">Manage store</button></div>
+  <a class="logo shine" href="#top" id="logo">Reshmeen</a>
+  <div class="links"><a href="#featured">Featured</a><a href="#shop">Collection</a><a href="#craft">Craft</a><a href="#contact">Contact</a><button class="btn sm ghost" id="admBtn">Manage store</button><button class="thm" id="thm" aria-label="Switch to light theme"></button></div>
 </nav>
 
 <header class="hero" id="top">
@@ -168,7 +208,7 @@ form.f{display:grid;gap:12px}
   </div>
   <div class="heroTxt">
     <div class="kick" id="kick"></div>
-    <h1 id="h1">Made to be seen</h1>
+    <h1 id="h1" class="shine">Made to be seen</h1>
     <p id="tag"></p>
     <div class="ctas"><a class="btn" href="#shop">Shop the collection</a><a class="btn ghost" id="heroWa" href="#contact">Order on WhatsApp</a></div>
   </div>
@@ -217,6 +257,8 @@ form.f{display:grid;gap:12px}
   <div class="db" id="dbody"></div>
 </aside>
 <div class="toast" id="toast"></div>
+<canvas id="rain" aria-hidden="true"></canvas><div class="flash" id="flash"></div>
+<div class="spot" id="spot"></div><canvas id="dust" aria-hidden="true"></canvas>
 
 <script>
 {
@@ -423,6 +465,45 @@ async function commit(msg){
   catch(e){toast('Could not save: '+(e.message||'error'))}
   saving=false;
 }
+
+/* ===== theme ===== */
+const SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>';
+const MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
+function setTheme(t){document.documentElement.dataset.theme=t;$('#thm').innerHTML=t==='light'?MOON:SUN;$('#thm').setAttribute('aria-label',t==='light'?'Switch to dark theme':'Switch to light theme');try{localStorage.setItem('rsTheme',t)}catch(e){}}
+let th='dark';try{th=localStorage.getItem('rsTheme')||'dark'}catch(e){}
+setTheme(th);
+$('#thm').onclick=()=>setTheme(document.documentElement.dataset.theme==='light'?'dark':'light');
+/* ===== spotlight ===== */
+if(!reduce&&matchMedia('(hover:hover)').matches){const sp=$('#spot');addEventListener('pointermove',e=>{sp.style.setProperty('--mx',e.clientX+'px');sp.style.setProperty('--my',e.clientY+'px');sp.classList.add('on')},{passive:true});document.addEventListener('pointerleave',()=>sp.classList.remove('on'))}
+/* ===== gold dust ===== */
+if(!reduce){const cv=$('#dust'),cx=cv.getContext('2d');let W,H,P=[];const DPR=Math.min(devicePixelRatio||1,2);
+  function size(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);const n=Math.round(Math.min(70,W*H/16000));P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.4,vy:-(Math.random()*.25+.05),vx:(Math.random()-.5)*.15,t:Math.random()*6.28,s:Math.random()*.02+.008}))}
+  size();addEventListener('resize',size);
+  (function draw(){cx.clearRect(0,0,W,H);const light=document.documentElement.dataset.theme==='light';
+    for(const p of P){p.x+=p.vx;p.y+=p.vy;p.t+=p.s;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}if(p.x<-5)p.x=W+5;if(p.x>W+5)p.x=-5;
+      const a=(Math.sin(p.t)*.5+.5)*(light?.55:.75);
+      cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fillStyle=light?`rgba(165,125,63,${a})`:`rgba(240,206,140,${a})`;cx.shadowBlur=light?0:8;cx.shadowColor='rgba(240,206,140,.9)';cx.fill()}
+    requestAnimationFrame(draw)})();}
+
+/* ===== rain + lightning ===== */
+if(!reduce){const rc=$('#rain'),rx=rc.getContext('2d'),fl=$('#flash');let RW,RH,drops=[],bolt=null;const RD=Math.min(devicePixelRatio||1,2);
+  function rsize(){RW=innerWidth;RH=innerHeight;rc.width=RW*RD;rc.height=RH*RD;rx.setTransform(RD,0,0,RD,0,0);const n=Math.round(Math.min(160,RW*RH/7000));drops=Array.from({length:n},()=>({x:Math.random()*RW*1.2-RW*.1,y:Math.random()*RH,l:Math.random()*16+10,v:Math.random()*7+9,a:Math.random()*.25+.08}))}
+  rsize();addEventListener('resize',rsize);
+  function mkBolt(x){const pts=[[x,0]];let cx=x,cy=0;while(cy<RH*.55){cx+=(Math.random()-.5)*60;cy+=Math.random()*40+20;pts.push([cx,cy])}
+    const br=[];for(let i=2;i<pts.length-1;i+=2){if(Math.random()<.5){let [bx,by]=pts[i];const b=[[bx,by]];for(let k=0;k<4;k++){bx+=(Math.random()-.3)*50*(Math.random()<.5?-1:1);by+=Math.random()*30+15;b.push([bx,by])}br.push(b)}}
+    return{pts,br,life:1}}
+  function strike(){const x=Math.random()*RW*.8+RW*.1;bolt=mkBolt(x);fl.style.setProperty('--fx',(x/RW*100)+'%');fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');setTimeout(strike,7000+Math.random()*9000)}
+  setTimeout(strike,2500);
+  function path(p){rx.beginPath();rx.moveTo(p[0][0],p[0][1]);for(const q of p)rx.lineTo(q[0],q[1]);rx.stroke()}
+  (function rain(){rx.clearRect(0,0,RW,RH);const light=document.documentElement.dataset.theme==='light';
+    rx.lineCap='round';rx.lineWidth=1;
+    for(const d of drops){d.x+=d.v*.22;d.y+=d.v;if(d.y>RH){d.y=-d.l;d.x=Math.random()*RW*1.2-RW*.1}
+      rx.strokeStyle=light?`rgba(90,70,60,${d.a*.8})`:`rgba(220,215,235,${d.a})`;rx.beginPath();rx.moveTo(d.x,d.y);rx.lineTo(d.x-d.l*.22,d.y-d.l);rx.stroke()}
+    if(bolt){const a=bolt.life;rx.shadowBlur=18;rx.shadowColor=light?'rgba(120,110,200,.8)':'rgba(200,190,255,.95)';
+      rx.strokeStyle=light?`rgba(70,60,140,${a})`:`rgba(245,242,255,${a})`;rx.lineWidth=2.4;path(bolt.pts);rx.lineWidth=1.2;bolt.br.forEach(path);rx.shadowBlur=0;
+      bolt.life-=.035;if(bolt.life<=0)bolt=null}
+    requestAnimationFrame(rain)})();}
+
 function renderAll(){renderSite();renderTools();renderGrid();renderRing()}
 renderAll();observe();if(!reduce)requestAnimationFrame(tick);else renderRing();
 addEventListener('resize',renderRing);
