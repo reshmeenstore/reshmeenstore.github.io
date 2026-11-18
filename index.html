@@ -218,6 +218,9 @@ box-shadow:0 0 60px 12px rgba(255,236,190,.45),0 0 160px 50px rgba(167,139,250,.
 :root[data-theme=light] .moon{box-shadow:0 0 50px 10px rgba(201,164,106,.4)}
 #shoot{position:fixed;inset:0;width:100%;height:100%;z-index:23;pointer-events:none}
 @media(prefers-reduced-motion:reduce){#shoot{display:none}.moon{animation:none}}
+.feat{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.feat li{position:relative;padding-left:24px;font-size:15px}
+.feat li::before{content:"✦";position:absolute;left:0;top:0;color:var(--gold)}
 @media(max-width:700px){.modal{grid-template-columns:1fr}.chip.c1{left:-24%;top:6%}.chip.c2{right:-24%}.chip.c3{display:none}.chip{width:78px}.chip span{font-size:13px}nav .links{gap:14px;font-size:14px;width:100%;margin-left:0}.search{margin-left:0;width:100%}.two{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
@@ -374,7 +377,7 @@ $('#tools').addEventListener('input',e=>{if(e.target.id==='q'){query=e.target.va
 function openP(id){
   const p=S.products.find(x=>x.id===id);if(!p)return;
   const msg=`Assalam o alaikum! I want to order "${p.name}" (${money(p.price)}) from ${S.brand}. Is it available?`;
-  $('#modal').innerHTML=`<div class="pic">${p.video?`<video id="mImg" src="${esc(p.video)}" poster="${src(p)}" autoplay muted loop playsinline controls></video>`:`<img id="mImg" src="${src(p)}" alt="${esc(p.name)}">`}</div><div class="info"><button class="x" id="mx" aria-label="Close">×</button><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price" style="font-size:22px">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div><div class="small">${esc(p.pieces)}</div><p style="margin:0;color:var(--mute)">${esc(p.desc)}</p>${p.stock?`<a class="btn" href="${waLink(msg)}">Order on WhatsApp</a>`:'<div class="btn ghost" style="cursor:default">Sold out · ask for restock</div>'}<button class="btn ghost" id="cp">Copy order message</button>${waNum()?'':'<div class="small">WhatsApp number not added yet.</div>'}</div>`;
+  $('#modal').innerHTML=`<div class="pic">${p.video?`<video id="mImg" src="${esc(p.video)}" poster="${src(p)}" autoplay muted loop playsinline controls></video>`:`<img id="mImg" src="${src(p)}" alt="${esc(p.name)}">`}</div><div class="info"><button class="x" id="mx" aria-label="Close">×</button><div class="meta">${esc(p.cat)} · ${esc(p.fabric)}</div><h3>${esc(p.name)}</h3><div class="price" style="font-size:22px">${money(p.price)}${p.was>p.price?`<s>${money(p.was)}</s>`:''}</div><div class="small">${esc(p.pieces)}</div><p style="margin:0;color:var(--mute)">${esc(p.desc)}</p>${(p.features||[]).length?`<ul class="feat">${p.features.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:''}${p.stock?`<a class="btn" href="${waLink(msg)}">Order on WhatsApp</a>`:'<div class="btn ghost" style="cursor:default">Sold out · ask for restock</div>'}<button class="btn ghost" id="cp">Copy order message</button>${waNum()?'':'<div class="small">WhatsApp number not added yet.</div>'}</div>`;
   $('#ov').classList.add('open');
   $('#mx').onclick=closeP;
   $('#cp').onclick=()=>navigator.clipboard.writeText(msg).then(()=>toast('Order message copied')).catch(()=>toast('Copy not allowed here'));
@@ -423,6 +426,7 @@ function prodForm(p){
   <div class="two"><label>Category<select name="cat">${S.categories.map(c=>`<option ${c===p.cat?'selected':''}>${esc(c)}</option>`).join('')}</select></label><label>Badge<input name="badge" value="${esc(p.badge)}" placeholder="New, Sale, Limited"></label></div>
   <div class="two"><label>Fabric<input name="fabric" value="${esc(p.fabric)}"></label><label>Pieces / sizes<input name="pieces" value="${esc(p.pieces)}"></label></div>
   <label>Description<textarea name="desc">${esc(p.desc)}</textarea></label>
+  <label>Khasiyat / features (one per line)<textarea name="features">${esc((p.features||[]).join('\n'))}</textarea></label>
   <label class="chk"><input type="checkbox" name="stock" ${p.stock?'checked':''}> In stock</label>
   <label class="chk"><input type="checkbox" name="featured" ${p.featured?'checked':''}> Show in 3D featured rail</label>
   <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="dbtn" type="submit" id="saveP">Save suit</button><button class="dbtn lt" type="button" id="cancel">Cancel</button></div></form>`;
@@ -442,7 +446,7 @@ function bindProd(){
     catch(err){toast('Video upload failed: '+(err.message||''))}
     $('#saveP').disabled=false;$('#saveP').textContent='Save suit'};
   f.onsubmit=e=>{e.preventDefault();const fd=new FormData(f);
-    const p={...editing,name:fd.get('name').trim(),price:+fd.get('price')||0,was:+fd.get('was')||0,cat:fd.get('cat'),badge:fd.get('badge').trim(),fabric:fd.get('fabric').trim(),pieces:fd.get('pieces').trim(),desc:fd.get('desc').trim(),stock:fd.has('stock'),featured:fd.has('featured')};
+    const p={...editing,name:fd.get('name').trim(),price:+fd.get('price')||0,was:+fd.get('was')||0,cat:fd.get('cat'),badge:fd.get('badge').trim(),fabric:fd.get('fabric').trim(),pieces:fd.get('pieces').trim(),desc:fd.get('desc').trim(),features:String(fd.get('features')||'').split('\n').map(x=>x.trim()).filter(Boolean),stock:fd.has('stock'),featured:fd.has('featured')};
     const isNew=p._new;delete p._new;
     if(isNew)S.products.unshift(p);else{const i=S.products.findIndex(x=>x.id===p.id);if(i>-1)S.products[i]=p}
     editing=null;commit(isNew?'Suit added':'Suit updated')};
