@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwqjwvg0",
+   "name": "Top pant shawl",
+   "price": 1600,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Dimon georgette",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwqjyifk.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": false,
+   "features": []
+  },
+  {
    "id": "smwqjr3y0",
    "name": "Abaya",
    "price": 1950,
