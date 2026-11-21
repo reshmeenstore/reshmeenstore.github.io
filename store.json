@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwqiajsu",
+   "name": "SHARARA",
+   "price": 3500,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Chinnon stirik",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwqiavtz.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwqi4tp3",
    "name": "Abaya",
    "price": 1750,
