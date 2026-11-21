@@ -300,7 +300,7 @@ box-shadow:0 0 60px 12px rgba(255,236,190,.45),0 0 160px 50px rgba(167,139,250,.
     <dl id="cinfo"></dl>
   </div>
 </section>
-<footer><span id="copy"></span><span>Pakistani suits · lawn · chiffon · velvet</span></footer>
+<footer><span id="copy"></span><span>Pakistani suits · lawn · chiffon · velvet · <a href="#admin" style="color:inherit">Owner login</a></span></footer>
 
 <div class="ov" id="ov"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
 
@@ -414,8 +414,8 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{tab=b.datase
 function renderAdmin(){
   const d=$('#dbody');
   if(!GH){d.innerHTML=connectForm();bindConnect();return}
-  d.innerHTML=`<p style="font-size:13px;color:#6d5a4f;margin:0 0 12px">Connected to ${esc(GH.owner)}/${esc(GH.repo)}. Changes go live in about 1 minute. <button class="ib" id="logout" style="height:30px">Log out</button></p>`;
-  setTimeout(()=>{const l=$('#logout');if(l)l.onclick=()=>{GH=null;try{localStorage.removeItem('rsGh')}catch(e){}renderAdmin()}});
+  d.innerHTML=`<p style="font-size:13px;color:#6d5a4f;margin:0 0 12px">Logged in as ${esc((OWNER&&OWNER.name)||'owner')}. Changes go live in about 1 minute. <button class="ib" id="logout" style="height:30px">Log out</button></p>`;
+  setTimeout(()=>{const l=$('#logout');if(l)l.onclick=()=>{GH=null;try{localStorage.removeItem('rsGh');sessionStorage.removeItem('rsGh')}catch(e){}renderAdmin()}});
   if(tab==='site'){d.innerHTML+=siteForm();bindSite();return}
   if(editing){d.innerHTML+=prodForm(editing);bindProd();return}
   d.innerHTML+=`<div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><button class="dbtn" id="add">+ Add suit</button><span class="sb" style="font-size:13px;color:#6d5a4f">${S.products.length} products</span></div>`+
@@ -490,7 +490,7 @@ function bindSite(){
 }
 
 let saving=false,GH=null;
-try{GH=JSON.parse(localStorage.getItem('rsGh')||'null')}catch(e){}
+try{GH=JSON.parse(localStorage.getItem('rsGh')||sessionStorage.getItem('rsGh')||'null')}catch(e){}
 const b64=str=>{const u=new TextEncoder().encode(str);let x='';for(let i=0;i<u.length;i+=8192)x+=String.fromCharCode(...u.subarray(i,i+8192));return btoa(x)};
 const H=()=>({Authorization:'Bearer '+GH.token,Accept:'application/vnd.github+json'});
 async function ghPut(path,content,msg){
@@ -500,17 +500,57 @@ async function ghPut(path,content,msg){
   if(!p.ok)throw new Error((await p.json().catch(()=>({}))).message||('Error '+p.status));
 }
 function guess(){const h=location.hostname,seg=location.pathname.split('/').filter(Boolean)[0];if(h.endsWith('.github.io')){const o=h.split('.')[0];return{owner:o,repo:seg&&!seg.includes('.')?seg:h}}return{owner:'',repo:''}}
-function connectForm(){const g=guess();return `<form class="f" id="cf"><h3 class="serif" style="font-size:26px">Owner login</h3><p style="margin:0;font-size:14px;color:#6d5a4f">Paste your GitHub token once on this device. It stays only in this browser.</p>
-  <label>GitHub username<input name="owner" required value="${esc(g.owner)}"></label>
-  <label>Repository name<input name="repo" required value="${esc(g.repo)}"></label>
-  <label>Token<input name="token" type="password" required autocomplete="off"></label>
-  <button class="dbtn" type="submit" id="cgo">Log in</button><p id="cerr" style="color:#a3302a;font-size:14px;margin:0"></p></form>`}
-function bindConnect(){$('#cf').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);
-  const g={owner:fd.get('owner').trim(),repo:fd.get('repo').trim(),token:fd.get('token').trim(),branch:'main'};
-  $('#cgo').textContent='Checking…';
-  try{const r=await fetch(`https://api.github.com/repos/${g.owner}/${g.repo}`,{headers:{Authorization:'Bearer '+g.token}});if(!r.ok)throw 0;const j=await r.json();g.branch=j.default_branch||'main';
-    GH=g;try{localStorage.setItem('rsGh',JSON.stringify(g))}catch(e){}renderAdmin();toast('Logged in')}
-  catch(err){$('#cerr').textContent='Could not connect. Check the username, repository name and token.';$('#cgo').textContent='Log in'}}}
+const REPO={owner:'reshmeenstore',repo:'reshmeenstore.github.io',branch:'main'};
+let OWNER;
+async function loadOwner(){try{const r=await fetch('owner.json?t='+Date.now(),{cache:'no-store'});OWNER=r.ok?await r.json():null}catch(e){OWNER=null}return OWNER}
+const _te=new TextEncoder(),_td=new TextDecoder();
+const _b2s=b=>{let x='';new Uint8Array(b).forEach(c=>x+=String.fromCharCode(c));return btoa(x)};
+const _s2b=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const normPhone=p=>String(p||'').replace(/\D/g,'').slice(-10);
+async function ownerKey(pass,phone,salt){const base=await crypto.subtle.importKey('raw',_te.encode(normPhone(phone)+':'+pass),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:250000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function checkRepo(token){const r=await fetch(`https://api.github.com/repos/${REPO.owner}/${REPO.repo}`,{headers:{Authorization:'Bearer '+token,Accept:'application/vnd.github+json'}});if(!r.ok)return false;const j=await r.json();return !!(j.permissions&&(j.permissions.push||j.permissions.admin))}
+function keepLogin(g,remember){try{const s=JSON.stringify(g);(remember?localStorage:sessionStorage).setItem('rsGh',s)}catch(e){}}
+function connectForm(){
+  if(OWNER===undefined){loadOwner().then(()=>{if($('#drawer').classList.contains('open'))renderAdmin()});return '<p style="color:#6d5a4f">Loading…</p>'}
+  if(!OWNER)return `<form class="f" id="cf"><h3 class="serif" style="font-size:26px">Owner signup</h3><p style="margin:0;font-size:14px;color:#6d5a4f">One time only. After this, log in with your mobile number and password.</p>
+  <label>Owner name<input name="name" required autocomplete="name"></label>
+  <label>Mobile number<input name="phone" required inputmode="tel" autocomplete="tel"></label>
+  <div class="two"><label>Password<input name="pass" type="password" required minlength="6" autocomplete="new-password"></label><label>Confirm password<input name="pass2" type="password" required minlength="6" autocomplete="new-password"></label></div>
+  <label>GitHub access key (one time)<input name="token" type="password" required autocomplete="off"></label>
+  <p style="margin:0;font-size:13px;color:#6d5a4f">The access key lets the website save your changes. It is locked with your password and never shown again.</p>
+  <button class="dbtn" type="submit" id="cgo">Create owner account</button><p id="cerr" style="color:#a3302a;font-size:14px;margin:0"></p></form>`;
+  return `<form class="f" id="cf"><h3 class="serif" style="font-size:26px">Owner login</h3><p style="margin:0;font-size:14px;color:#6d5a4f">Welcome back${OWNER.name?', '+esc(OWNER.name):''}.</p>
+  <label>Mobile number<input name="phone" required inputmode="tel" autocomplete="tel"></label>
+  <label>Password<input name="pass" type="password" required autocomplete="current-password"></label>
+  <label class="chk"><input type="checkbox" name="remember" checked> Keep me logged in on this device</label>
+  <button class="dbtn" type="submit" id="cgo">Log in</button><p id="cerr" style="color:#a3302a;font-size:14px;margin:0"></p></form>`;
+}
+function bindConnect(){const f=$('#cf');if(!f)return;f.onsubmit=async e=>{e.preventDefault();const fd=new FormData(f),err=t=>{$('#cerr').textContent=t;$('#cgo').disabled=false};
+  $('#cgo').disabled=true;$('#cerr').textContent='Please wait…';
+  try{
+    if(!OWNER){
+      const name=fd.get('name').trim(),phone=normPhone(fd.get('phone')),pass=fd.get('pass'),token=fd.get('token').trim();
+      if(phone.length!==10)return err('Enter a 10 digit mobile number.');
+      if(pass!==fd.get('pass2'))return err('The two passwords do not match.');
+      if(!(await checkRepo(token)))return err('This access key cannot edit the website. Check it and try again.');
+      const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+      const key=await ownerKey(pass,phone,salt);
+      const data=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,_te.encode(JSON.stringify({token})));
+      const rec={name,phone,salt:_b2s(salt),iv:_b2s(iv),data:_b2s(data),created:new Date().toISOString().slice(0,10)};
+      GH={...REPO,token};
+      await ghPut('owner.json',b64(JSON.stringify(rec,null,1)),'Create owner account');
+      OWNER=rec;keepLogin(GH,true);renderAdmin();toast('Owner account created · welcome '+name);
+    }else{
+      const phone=normPhone(fd.get('phone')),pass=fd.get('pass');
+      if(phone!==OWNER.phone)return err('Mobile number or password is wrong.');
+      let token;
+      try{const key=await ownerKey(pass,phone,_s2b(OWNER.salt));token=JSON.parse(_td.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:_s2b(OWNER.iv)},key,_s2b(OWNER.data)))).token}
+      catch(x){return err('Mobile number or password is wrong.')}
+      if(!(await checkRepo(token)))return err('Logged in, but the saved access key has expired. Ask for a new one to be set up.');
+      GH={...REPO,token};keepLogin(GH,fd.has('remember'));showAdm();renderAdmin();toast('Logged in · welcome '+(OWNER.name||'owner'));
+    }
+  }catch(x){err('Something went wrong: '+(x.message||x))}
+}}
 async function commit(msg){
   renderAll();renderAdmin();
   if(!GH){toast('Log in first to save');return}
@@ -581,7 +621,7 @@ renderAll();observe();if(!reduce)requestAnimationFrame(tick);else renderRing();
 addEventListener('resize',renderRing);
 
 function showAdm(){const on=location.hash==='#admin'||!!GH;$('#admBtn').style.display=on?'inline-flex':'none';if(location.hash==='#admin')openDrawer()}
-addEventListener('hashchange',showAdm);showAdm();
+addEventListener('hashchange',showAdm);showAdm();loadOwner();
 fetch('store.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.products){S=j;renderAll();if($('#drawer').classList.contains('open'))renderAdmin()}}).catch(()=>{});
 }
 </script>
