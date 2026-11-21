@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwqkfdgz",
+   "name": "Anarkali",
+   "price": 1300,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Mall chandari",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwqkfn7x.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwqjwvg0",
    "name": "Top pant shawl",
    "price": 1600,
