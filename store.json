@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwqi4tp3",
+   "name": "Abaya",
+   "price": 1750,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwqi7qgt.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwqhk09n",
    "name": "Abaya",
    "price": 1250,
