@@ -18,6 +18,27 @@
  ],
  "products": [
   {
+   "id": "rose-tissue",
+   "name": "Rose Tissue Suit",
+   "price": 3400,
+   "was": 0,
+   "cat": "Formal",
+   "fabric": "Shimmer tissue",
+   "pieces": "3 piece · kurta, salwar, dupatta",
+   "desc": "Blush pink shimmer tissue suit with a hand-embellished yoke of gold zari, sequins, green stones and a beaded tassel hem. Comes with a matching tissue dupatta finished in gold lace. Free shipping.",
+   "features": [
+    "Free shipping on this suit",
+    "Hand-embellished yoke with zari, sequins and green stones",
+    "Beaded tassels along the yoke and scattered motifs on the kurta",
+    "Matching tissue dupatta with gold lace border",
+    "Full 3 piece set: kurta, salwar and dupatta"
+   ],
+   "img": "rose-tissue.webp",
+   "badge": "Free Shipping",
+   "stock": true,
+   "featured": true
+  },
+  {
    "id": "charcoal-jilbab",
    "name": "Charcoal Grey Jilbab",
    "price": 1499,
@@ -36,7 +57,7 @@
    "img": "reshmeen_upload/charcoal-jilbab.jpg",
    "video": "reshmeen_upload/charcoal-jilbab.mp4",
    "badge": "New",
-   "stock": true,
+   "stock": false,
    "featured": true
   },
   {
@@ -50,7 +71,7 @@
    "desc": "Deep cocoa base with rose and gold floral embroidery along the neckline, wide sleeves and front panels. Printed border dupatta.",
    "img": "look1.jpg",
    "badge": "New",
-   "stock": true,
+   "stock": false,
    "featured": true
   },
   {
@@ -65,7 +86,7 @@
    "img": "blackcoral.jpg",
    "video": "blackcoral.mp4",
    "badge": "New",
-   "stock": true,
+   "stock": false,
    "featured": true
   }
  ],
