@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwqifc65",
+   "name": "loan frock salwar dupatta",
+   "price": 2250,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Mulchandari",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwqifkk1.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwqiajsu",
    "name": "SHARARA",
    "price": 3500,
