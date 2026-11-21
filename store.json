@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwqjr3y0",
+   "name": "Abaya",
+   "price": 1950,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "imported velvet",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwqjrh1d.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwqifc65",
    "name": "loan frock salwar dupatta",
    "price": 2250,
