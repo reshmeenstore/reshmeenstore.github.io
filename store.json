@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwreqx7j",
+   "name": "Abaya",
+   "price": 1300,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "fancy sleeves",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwreraui.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwqkfdgz",
    "name": "Anarkali",
    "price": 1300,
