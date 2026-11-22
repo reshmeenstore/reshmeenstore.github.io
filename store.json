@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwrfmib4",
+   "name": "ABAYA",
+   "price": 1650,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "imported zoom fabric",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwrfmswl.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwrf6f0o",
    "name": "ABAYA",
    "price": 1750,
