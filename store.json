@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwrf0j3e",
+   "name": "ABAYA",
+   "price": 1250,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Havy gorget",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwrf0tq0.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwretjjr",
    "name": "Abaya",
    "price": 1750,
