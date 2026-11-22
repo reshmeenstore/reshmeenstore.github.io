@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwretjjr",
+   "name": "Abaya",
+   "price": 1750,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "Prada fabric fancy",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwretvgd.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": true,
+   "features": []
+  },
+  {
    "id": "smwreqx7j",
    "name": "Abaya",
    "price": 1300,
