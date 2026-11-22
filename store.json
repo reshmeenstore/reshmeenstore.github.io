@@ -18,6 +18,21 @@
  ],
  "products": [
   {
+   "id": "smwrf6f0o",
+   "name": "ABAYA",
+   "price": 1750,
+   "was": 0,
+   "cat": "Lawn",
+   "fabric": "imported fabric fancy",
+   "pieces": "3 piece",
+   "desc": "",
+   "img": "img/umwrf73t7.jpg",
+   "badge": "New",
+   "stock": true,
+   "featured": false,
+   "features": []
+  },
+  {
    "id": "smwrf0j3e",
    "name": "ABAYA",
    "price": 1250,
